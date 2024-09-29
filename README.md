@@ -1,2 +1,1 @@
-# nt548-p11-lab
-DevOps lab
+# NT548.P11 - CÔNG NGHỆ DEVOPS VÀ ỨNG DỤNG
