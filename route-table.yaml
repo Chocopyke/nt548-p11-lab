@@ -10,36 +10,40 @@ Parameters:
     Type: String
   NatGatewayId:
     Type: String
+  paramUniqueName:
+    Type: String
+    Default: cf-testing
 
 Resources:
-  # Public Route Table cho Public Subnet
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPCId
+      Tags:
+      - Key: Name
+        Value: cf-public-route-table
 
-  # Định tuyến tất cả traffic ra ngoài qua Internet Gateway
   PublicRoute:
     Type: AWS::EC2::Route
     Properties:
       RouteTableId: !Ref PublicRouteTable
-      DestinationCidrBlock: 0.0.0.0/0  # Định tuyến tất cả traffic
-      GatewayId: !Ref InternetGatewayId  # Qua Internet Gateway
+      DestinationCidrBlock: 0.0.0.0/0  
+      GatewayId: !Ref InternetGatewayId  
 
-  # Gắn Public Subnet vào Public Route Table
   PublicSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
       SubnetId: !Ref PublicSubnetId
       RouteTableId: !Ref PublicRouteTable
 
-  # Private Route Table cho Private Subnet
   PrivateRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId: !Ref VPCId
+      Tags:
+      - Key: Name
+        Value: cf-private-route-table
 
-  # Định tuyến tất cả traffic từ Private Subnet qua NAT Gateway
   PrivateRoute:
     Type: AWS::EC2::Route
     Properties:
@@ -47,7 +51,6 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref NatGatewayId
 
-  # Gắn Private Subnet vào Private Route Table
   PrivateSubnetRouteTableAssociation:
     Type: AWS::EC2::SubnetRouteTableAssociation
     Properties:
