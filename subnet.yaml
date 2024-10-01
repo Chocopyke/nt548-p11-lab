@@ -5,11 +5,11 @@ Parameters:
     Description: The ID of the VPC
 
 Resources:
-  PublicSubnet:
+   PublicSubnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref VPCId
-      CidrBlock: 200.13.11.0/25
+      VpcId: !Ref MyVPC
+      CidrBlock: 192.168.100.0/25
       MapPublicIpOnLaunch: true
       AvailabilityZone: !Select [ 0, !GetAZs '' ]
       Tags:
@@ -19,8 +19,8 @@ Resources:
   PrivateSubnet:
     Type: AWS::EC2::Subnet
     Properties:
-      VpcId: !Ref VPCId
-      CidrBlock: 200.13.11.128/25
+      VpcId: !Ref MyVPC
+      CidrBlock: 192.168.100.128/25
       AvailabilityZone: !Select [ 1, !GetAZs '' ]
       Tags:
         - Key: Name

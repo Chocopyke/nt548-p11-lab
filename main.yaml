@@ -3,26 +3,26 @@ Resources:
   VPCStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://idk-test-bucket-3009.s3.amazonaws.com/vpc.yaml
+      TemplateURL: https://idk-testing.s3.amazonaws.com/vpc.yaml
 
   SubnetStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://idk-test-bucket-3009.s3.amazonaws.com/subnet.yaml
+      TemplateURL: https://idk-testing.s3.amazonaws.com/subnet.yaml
       Parameters:
         VPCId: !GetAtt VPCStack.Outputs.VPCId
 
   NatGatewayStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://idk-test-bucket-3009.s3.amazonaws.com/nat-gateway.yaml
+      TemplateURL: https://idk-testing.s3.amazonaws.com/nat-gateway.yaml
       Parameters:
         PublicSubnetId: !GetAtt SubnetStack.Outputs.PublicSubnetId
 
   RouteTableStack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://idk-test-bucket-3009.s3.amazonaws.com/route-table.yaml
+      TemplateURL: https://idk-testing.s3.amazonaws.com/route-table.yaml
       Parameters:
         VPCId: !GetAtt VPCStack.Outputs.VPCId
         PublicSubnetId: !GetAtt SubnetStack.Outputs.PublicSubnetId
@@ -33,7 +33,7 @@ Resources:
   EC2Stack:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://idk-test-bucket-3009.s3.amazonaws.com/ec2.yaml
+      TemplateURL: https://idk-testing.s3.amazonaws.com/ec2.yaml
       Parameters:
         VPCId: !GetAtt VPCStack.Outputs.VPCId
         PublicSubnetId: !GetAtt SubnetStack.Outputs.PublicSubnetId
