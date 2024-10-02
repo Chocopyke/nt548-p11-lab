@@ -15,12 +15,6 @@ Resources:
       SubnetId: !Ref PublicSubnetId
       SecurityGroupIds:
         - !Ref PublicSecurityGroup
-      # NetworkInterfaces:
-      #   - AssociatePublicIpAddress: true 
-      #     DeviceIndex: 0
-      #     SubnetId: !Ref PublicSubnetId
-      #     GroupSet:
-      #       - !Ref PublicSecurityGroup
       KeyName: testkeypair
       ImageId: ami-0ebfd941bbafe70c6
       Tags:
@@ -49,7 +43,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 14.186.87.128/24  # Replace with your IP
+          CidrIp: 14.186.87.128/32  # Replace with your IP
 
   PrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
