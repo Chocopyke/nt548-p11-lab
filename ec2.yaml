@@ -6,6 +6,15 @@ Parameters:
     Type: String
   VPCId:
     Type: String
+  MyIP:
+    Type: String
+    Default: 14.186.87.128/32
+  ZoneIP:
+    Type: String
+    Default: 18.206.107.24/29
+  PublicSubnet:
+    Type: String
+    Default: 192.168.100.0/25
 
 Resources:
   PublicEC2Instance:
@@ -43,12 +52,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: 14.186.87.128/32
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 22
-          ToPort: 22
-          CidrIp: 18.206.107.24/29
+          CidrIp: 0.0.0.0/0
 
   PrivateSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -60,7 +64,11 @@ Resources:
           FromPort: 22
           ToPort: 22
           SourceSecurityGroupId: !Ref PublicSecurityGroup
-
+      SecurityGroupEgress:
+      - IpProtocol: -1
+        FromPort: -1
+        ToPort: -1
+        CidrIp: 0.0.0.0/0
 Outputs:
   PublicEC2InstanceId:
     Value: !Ref PublicEC2Instance
