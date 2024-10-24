@@ -3,6 +3,5 @@ provider "aws" {
 }
 
 variable "region" {
-  description = "tf-testing with love hehehe"
   default     = "us-east-1"
 }
